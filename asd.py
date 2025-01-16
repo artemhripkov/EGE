@@ -40,6 +40,18 @@ def f(c,e):
     if c<e:
         return f(c+1, e)+f(2*c, e)+f(2*c+1,e) 
 print(f(4,218))
+#############################
+# 17 задание
+a = [int(x) for x in open('17-243.txt')]
+
+S = sum([int(i) for x in a if x % 49 == 0 for i in str(x)])
+ans = []
+for i in range(len(a) - 1):
+    if (a[i] > S and (not a[i + 1] > S) and a[i + 1] % 10 == 7) or \
+            (a[i + 1] > S and (not a[i] > S) and a[i] % 10 == 7):
+        ans.append(a[i] + a[i + 1])
+print(len(ans), min(ans))
+
 
 
 
