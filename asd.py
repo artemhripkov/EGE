@@ -1,3 +1,4 @@
+
 # 2 задание
 from itertools import *
 def f(x,y,w,z):
