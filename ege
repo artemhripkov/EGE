@@ -1,4 +1,4 @@
-# 2 задание
+2 задание
 from itertools import *
 
 
@@ -142,7 +142,7 @@ def dist(p1, p2):
 def getCluster(p0):
     cluster = [p for p in data if dist(p0, p) < 1]
     if len(cluster) > 0:
-        for p in cluster: 
+        for p in cluster:
             data.remove(p)
         next_cluster = [getCluster(p) for p in cluster]
         cluster = cluster + sum(next_cluster, [])
@@ -197,9 +197,9 @@ for a1, a2, a3, a4 in product([0, 1], repeat=4):
 
 # 19-21
 def f(a, b, m):
-    if a + b >= 231: 
+    if a + b >= 231:
         return m % 2 == 0
-    if m == 0: 
+    if m == 0:
         return 0
     h = [f(a + 2, b, m - 1), f(a * 2, b, m - 1), f(a, b + 2, m - 1), f(a, b * 2, m - 1)]
     return any(h) if (m - 1) % 2 == 0 else all(h)
@@ -208,3 +208,121 @@ def f(a, b, m):
 print('19)', [s for s in range(1, 214) if
               f(17, s, 2)])  # all->anyprint('20)',[s for s in range(1,214) if not f(17,s,1) and f(17,s,3)])
 print('21)', [s for s in range(1, 214) if not f(17, s, 2) and f(17, s, 4)])
+#################################################################
+#5
+def f(s):
+    summa = 0
+    for i in range(len(s)):
+        summa += int(s[i])
+    return summa
+for n in range(1, 100):
+    s = bin(n)[2:]  # перевод в двоичную систему
+    s = str(s)
+    summa = f(s)
+    s = s + str(summa % 2)
+    summa = f(s)
+    s = s + str(summa % 2)
+    r = int(s, 2)  # перевод в десятичную систему
+    if r > 43:
+        print(r)
+        break
+
+#8
+
+# количество слов
+from itertools import product
+count = 0
+number = 0
+for p in product(sorted("АЛГОРИТМ"), repeat=5):
+    number += 1
+    if number % 2 != 0 and p[0]!="Г" and p.count("И") >= 2:
+        count+=1
+print(count)
+
+# количество слов с ограничениями
+
+import itertools
+alphabet = "ABCX"
+ar = itertools.product(alphabet, repeat=5) #Размещение с повторением
+arl = []
+for i in ar:
+    arl.append(list(i))
+count = 0
+for e in arl:
+    if e.count('X') == 1:
+        count += 1
+print(count)
+
+#Запишите слово, которое стоит на 210 месте от начала списка.
+from itertools import product
+words = list(product('АОУ', repeat=5))
+print(*words[209])
+# Укажите номер первого слова, которое начинается с буквы У
+from itertools import product
+
+c = 0
+s = product('АОУ', repeat=5)
+for i in s:
+    p = ''.join(i)
+    c += 1
+    if p[0] == 'У':
+        print(c)
+        break
+
+# сложные 12
+# После выполнения данной программы получилась строка B, содержащая 8 единиц и 13 двоек.ъ
+a=[]
+from random import shuffle
+for i in range (1,50):
+    for j in range (0,1000):
+        s = list('1'*i+'2'*i)
+        shuffle(s)
+        s = '0'+''.join(s)+'0'
+        while not '00' in s:
+            if '011' in s:
+                s = s.replace('011','101',1)
+            else:
+                s = s.replace('01', '40', 1)
+                s = s.replace('02', '20', 1)
+                s = s.replace('0222', '1401', 1)
+        if s.count('1')==8 and s.count('2')==13:
+            a.append(s.count('4'))
+print(min(a))
+
+# 13
+# порядковый номер компа в сети
+from ipaddress import *
+
+net = ip_network('192.168.5.22/255.255.255.248', 0)
+print(net)
+print(int(ip_address('192.168.5.22')) - int(ip_address('192.168.5.16')))
+
+# адрес сети
+
+from ipaddress import *
+net = ip_network('224.37.249.32/255.255.224.0', 0)
+print(net)
+
+# поиск маски
+
+from ipaddress import *
+for mask in range(33):
+    net = ip_network(f'227.138.127.144/{mask}', 0)
+    if str(net)[:-3] == '227.138.64.0':
+        print(net.netmask)
+
+# 24
+# обработка символьных строк
+f=open('24_demo.txt')
+s=f.readline()
+mx=1
+cnt=1
+for i in range(len(s)-1):
+    if s[i]=='X' and s[i+1]=='X':
+        cnt+=1
+        if cnt>mx:
+            mx=cnt
+    else:
+        cnt=1
+mx = max(cnt, mx)
+print(mx)
